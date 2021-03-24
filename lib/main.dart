@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realtime_chat/pages/usuarios_page.dart';
 import 'package:realtime_chat/routes/routes.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'login',
+      initialRoute: UsuariosPage.id,
       routes: appRoutes,
     );
   }

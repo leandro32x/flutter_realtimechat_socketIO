@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:realtime_chat/pages/register_page.dart';
 import 'package:realtime_chat/widgets/custom_input.dart';
 import 'package:realtime_chat/widgets/labels.dart';
 import 'package:realtime_chat/widgets/logo.dart';
 import '../widgets/boton_azul.dart';
 
 class LoginPage extends StatelessWidget {
+  static const id = 'login';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class LoginPage extends StatelessWidget {
                 Labels(
                   infoText: 'No tienes cuenta?',
                   infoTextLink: 'Crea una ahora!',
-                  route: 'register',
+                  route: RegisterPage.id,
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 30),
