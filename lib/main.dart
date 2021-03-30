@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realtime_chat/pages/usuarios_page.dart';
+import 'package:realtime_chat/pages/chat_page.dart';
 import 'package:realtime_chat/routes/routes.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: UsuariosPage.id,
+      initialRoute: ChatPage.id,
       routes: appRoutes,
     );
   }
