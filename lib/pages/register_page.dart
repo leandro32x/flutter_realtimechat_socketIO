@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:realtime_chat/helpers/mostrar_alerta.dart';
+import 'package:realtime_chat/pages/chat_page.dart';
 import 'package:realtime_chat/pages/login_page.dart';
+import 'package:realtime_chat/services/auth_service.dart';
 import 'package:realtime_chat/widgets/custom_input.dart';
 import 'package:realtime_chat/widgets/labels.dart';
 import 'package:realtime_chat/widgets/logo.dart';
@@ -55,8 +59,10 @@ class __FormState extends State<_Form> {
   final userName = TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 40),
@@ -79,10 +85,24 @@ class __FormState extends State<_Form> {
             isPassword: true,
           ),
           BotonAzul(
-            onPress: () {
-              print(emailController.text);
-              print(passController.text);
-            },
+            onPress: authService.autenticando
+                ? null
+                : () async {
+                    print(userName.text);
+                    print(emailController.text);
+                    print(passController.text);
+                    final registroOk = await authService.register(
+                        nombre: userName.text,
+                        email: emailController.text,
+                        password: passController.text);
+                    if (registroOk == true) {
+                      //Enviar el usuario a pantalla de chat
+                      Navigator.pushNamed(context, ChatPage.id);
+                    } else {
+                      mostrarAlerta(context, 'Error al crear usuario.',
+                          registroOk.toString());
+                    }
+                  },
           )
         ],
       ),

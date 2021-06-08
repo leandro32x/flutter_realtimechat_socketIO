@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:realtime_chat/pages/login_page.dart';
+import 'package:realtime_chat/pages/register_page.dart';
+import 'package:realtime_chat/pages/usuarios_page.dart';
+import 'package:realtime_chat/services/auth_service.dart';
 
 class LoadingPage extends StatelessWidget {
   static const id = 'loading';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Loading page'),
-      ),
-    );
+        body: FutureBuilder(
+      future: checkLoginState(context),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        return Center(
+          child: Text('Espere'),
+        );
+      },
+    ));
+  }
+
+  Future checkLoginState(BuildContext context) async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    final autenticado = await authService.isLogedIn();
+
+    if (autenticado) {
+      //TODO: Conectar al socket server
+      Navigator.pushReplacementNamed(context, UsuariosPage.id);
+    } else {
+      Navigator.pushReplacementNamed(context, LoginPage.id);
+    }
   }
 }
